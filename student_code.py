@@ -130,6 +130,22 @@ class KnowledgeBase(object):
         # Implementation goes here
         # Not required for the extra credit assignment
 
+    def rule_helper(self, rule):
+        lst = []
+        for r in rule.lhs:
+            lst.append(r)
+        result = ""
+        if len(lst) > 1:
+            i = 0
+            for l in lst:
+                result += str(l)
+                if i < len(lst) - 1:
+                    result += ", "
+                i += 1
+            return result
+        else:
+            return str(lst[0])
+
     def kb_helper(self, fact_or_rule):
         result = ""
         if isinstance(fact_or_rule, Fact):
@@ -144,18 +160,20 @@ class KnowledgeBase(object):
                 for support in fact_or_rule.supported_by:
                     result += self.explain(support)
         else:
+            lhs = self.rule_helper(fact_or_rule)
             if fact_or_rule.asserted is True:
-                new_rule = '\n' + "  rule: " + '(' + fact_or_rule.lhs + ')' + " -> " + fact_or_rule.rhs + " ASSERTED"
+                new_rule = '\n' + "  rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs) + " ASSERTED"
                 result += new_rule
                 for support in fact_or_rule.supported_by:
                     #result += ('\n' + "  " + "SUPPORTED BY" + '\n')
                     result += self.explain(support)
             else:
-                new_rule = '\n' + "  rule: " + '(' + fact_or_rule.lhs + ')' + " -> " + fact_or_rule.rhs
+                new_rule = '\n' + "  rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs)
                 result += new_rule
                 for support in fact_or_rule.supported_by:
                     result += self.explain(support)
         return result
+
 
 
 
@@ -194,14 +212,15 @@ class KnowledgeBase(object):
             if fact_or_rule not in self.rules:
                 return "Rule is not in the KB"
             else:
+                lhs = self.rule_helper(fact_or_rule)
                 if fact_or_rule.asserted is True:
-                    result = "rule: " + '(' + fact_or_rule.lhs + ')' + " -> " + fact_or_rule.rhs
+                    result = "rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs)
                     if len(fact_or_rule.supported_by) > 0:
                         result += '\n' + "SUPPORTED BY"
                         for support in fact_or_rule.supported_by:
                             result += self.kb_helper(support)
                 else:
-                    result = "rule: " + '(' + fact_or_rule.lhs + ')' + " -> " + fact_or_rule.rhs
+                    result = "rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs)
                     if len(fact_or_rule.supported_by) > 0:
                         result += '\n' + "SUPPORTED BY"
                         for support in fact_or_rule.supported_by:
