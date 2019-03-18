@@ -142,6 +142,54 @@ class KnowledgeBase(object):
         """
         ####################################################
         # Student code goes here
+        if isinstance(fact_or_rule, Fact):
+            if fact_or_rule not in self.facts:
+                return "Fact is not in the KB"
+            else:
+                result = ""
+                if fact_or_rule.asserted is True:
+                    fact = str(fact_or_rule.statement)
+                    result += ("fact: " + fact)
+                    for support in fact_or_rule.supported_by:
+                        result += ('\n' + "  " + "SUPPORTED BY" + '\n')
+
+                        fact = str(support.statement)
+                        rule = ""
+                        result += ("fact: " + fact + " ASSERTED" + '\n')
+                        result += ("rule: " + rule + " ASSERTED")
+
+                else:
+                    fact = str(fact_or_rule.statement)
+                    result += ("fact: " + fact + " SUPPORTED" + '\n')
+                    for support in fact_or_rule.supported_by:
+                        result += ('\n' + "  " + "SUPPORTED BY" + '\n')
+
+                        fact = str(support.statement)
+                        rule = ""
+                        result += ("fact: " + fact + " SUPPORTED" + '\n')
+                        result += ("rule: " + rule + " SUPPORTED")
+                return result
+
+        elif isinstance(fact_or_rule, Rule):
+            if fact_or_rule not in self.rules:
+                return "Rule is not in the KB"
+            else:
+                result = ""
+                if fact_or_rule.asserted is True:
+                    result += str(fact_or_rule) + '\n'
+                    for support in fact_or_rule.supported_by:
+                        result += ("  " + "SUPPORTED BY" + '\n')
+                        new_string = "  " + str(support) + " ASSERTED" + '\n'
+                        result += new_string
+                else:
+                    result += str(fact_or_rule) + '\n'
+                    for support in fact_or_rule.supported_by:
+                        result += ("  " + "SUPPORTED BY" + '\n')
+                        new_string = "  " + str(support) + " SUPPORTED" + '\n'
+                        result += new_string
+                return result
+        else:
+            return False
 
 
 class InferenceEngine(object):
