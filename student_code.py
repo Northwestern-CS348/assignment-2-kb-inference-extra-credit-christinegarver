@@ -151,7 +151,7 @@ class KnowledgeBase(object):
         if isinstance(fact_or_rule, Fact):
             if fact_or_rule.asserted is True:
                 fact = str(fact_or_rule.statement)
-                result += ('\n' + "  fact: " + fact + " ASSERTED")
+                result += ('\n' + "  fact: " + fact) + " ASSERTED"
                 for support in fact_or_rule.supported_by:
                     result += self.explain(support)
             else:
@@ -214,7 +214,7 @@ class KnowledgeBase(object):
             else:
                 lhs = self.rule_helper(fact_or_rule)
                 if fact_or_rule.asserted is True:
-                    result = "rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs)
+                    result = "rule: " + '(' + lhs + ')' + " -> " + str(fact_or_rule.rhs) + " ASSERTED"
                     if len(fact_or_rule.supported_by) > 0:
                         result += '\n' + "SUPPORTED BY"
                         for support in fact_or_rule.supported_by:
