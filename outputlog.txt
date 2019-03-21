@@ -1,0 +1,18 @@
+TESTS WITH ERRORS 
+test03 (gradingtests.UnitTests)
+Traceback (most recent call last):
+  File "/Users/k2i/academics/automatedgradingapp/app/testing/kb-inference-ec/gradingtests.py", line 73, in test03
+    actual = self.KB.kb_explain(fact4)
+  File "/Users/k2i/academics/automatedgradingapp/app/testing/kb-inference-ec/student_code.py", line 208, in kb_explain
+    result += self.kb_helper(support)
+  File "/Users/k2i/academics/automatedgradingapp/app/testing/kb-inference-ec/student_code.py", line 163, in kb_helper
+    lhs = self.rule_helper(fact_or_rule)
+  File "/Users/k2i/academics/automatedgradingapp/app/testing/kb-inference-ec/student_code.py", line 135, in rule_helper
+    for r in rule.lhs:
+AttributeError: 'list' object has no attribute 'lhs'
+
+-------------------------------
+TESTS FAILED  
+-------------------------------
+TESTS SKIPPED 
+-------------------------------
